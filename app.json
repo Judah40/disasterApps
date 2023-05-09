@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "DisasterRiskReduction",
+    "slug": "MyReactNativeProject",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "8dde6360-7027-49c8-ba36-3e02378321b7"
+      }
+    }
+  },
+  "name": "MyReactNativeProject"
+}

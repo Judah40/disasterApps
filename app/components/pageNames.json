@@ -1,0 +1,74 @@
+{
+  "english": {
+    "languages": "Languages",
+    "search": "Search",
+    "downloads": "Downloads",
+    "help": "Help",
+    "howtoS": "How to Search",
+    "howtoD": "How to Download",
+    "langMap": "Languages Map",
+    "settings": "Settings",
+    "favs": "Favourites",
+    "termLang": "Term Languages"
+  },
+  "krio": {
+    "languages": "Languages Krio",
+    "search": "Search Krio",
+    "downloads": "Downloads Krio",
+    "help": "Help Krio",
+    "howtoS": "How to Search Krio",
+    "howtoD": "How to Download Krio",
+    "langMap": "Languages Map Krio",
+    "settings": "Settings Krio",
+    "favs": "Favourites Krio",
+    "termLang": "Term Languages Krio"
+  },
+  "kono": {
+    "languages": "Languages Kono",
+    "search": "Search Kono",
+    "downloads": "Downloads Kono",
+    "help": "Help Kono",
+    "howtoS": "How to Search Kono",
+    "howtoD": "How to Download Kono",
+    "langMap": "Languages Map Kono",
+    "settings": "Settings Kono",
+    "favs": "Favourites Kono",
+    "termLang": "Term Languages Kono"
+  },
+  "limba": {
+    "languages": "Languages Limba",
+    "search": "Search Limba",
+    "downloads": "Downloads Limba",
+    "help": "Help Limba",
+    "howtoS": "How to Search Limba",
+    "howtoD": "How to Download Limba",
+    "langMap": "Languages Map Limba",
+    "settings": "Settings Limba",
+    "favs": "Favourites Limba",
+    "termLang": "Term Languages Limba"
+  },
+  "mende": {
+    "languages": "Languages Mende",
+    "search": "Search Mende",
+    "downloads": "Downloads Mende",
+    "help": "Help Mende",
+    "howtoS": "How to Search Mende",
+    "howtoD": "How to Download Mende",
+    "langMap": "Languages Map Mende",
+    "settings": "Settings Mende",
+    "favs": "Favourites Mende",
+    "termLang": "Term Languages Mende"
+  },
+  "themne": {
+    "languages": "Languages Themne",
+    "search": "Search Themne",
+    "downloads": "Downloads Themne",
+    "help": "Help Themne",
+    "howtoS": "How to Search Themne",
+    "howtoD": "How to Download Themne",
+    "langMap": "Languages Map Themne",
+    "settings": "Settings Themne",
+    "favs": "Favourites Themne",
+    "termLang": "Term Languages Themne"
+  }
+}

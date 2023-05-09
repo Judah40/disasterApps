@@ -1,0 +1,378 @@
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  // GENERAL
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  backGroundImage: {
+    width: "100%",
+    height: "100%",
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+
+  // WELCOME
+  welcomePage: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    alignContent: "space-around",
+    padding: "10%",
+    paddingTop: "20%",
+  },
+
+  // LANGUAGES
+  containerSL: {
+    flex: 7,
+    marginHorizontal: "3%",
+    paddingHorizontal: "3%",
+    justifyContent: "space-evenly",
+  },
+
+  // SEARCHBAR
+  searchBar__unclicked: {
+    height: 60,
+    margin: 5,
+    marginBottom: 0,
+    flexDirection: "row",
+    backgroundColor: "#ffffff",
+    borderRadius: 15,
+    borderWidth: 3,
+    borderTopColor: "#dedede",
+    borderLeftColor: "#dedede",
+    borderBottomColor: "#909090",
+    borderRightColor: "#909090",
+    alignSelf: "stretch",
+    textShadowColor: "gray",
+  },
+  searchBar__clicked: {
+    margin: "3%",
+    flexDirection: "row",
+    backgroundColor: "#d9dbda",
+    borderRadius: 15,
+    alignSelf: "stretch",
+  },
+  input: {
+    flex: 1,
+    width: "100%",
+    fontSize: 17,
+    padding: 3,
+    margin: 2,
+  },
+
+  // SEARCH RENDER
+  searchContainer: {
+    flex: 1,
+    justifyContent: "space-evenly",
+  },
+  searchTermBox: {
+    borderRadius: 10,
+    borderWidth: 3,
+    borderTopColor: "#dedede",
+    borderLeftColor: "#dedede",
+    borderBottomColor: "#909090",
+    borderRightColor: "#909090",
+    //borderStyle: "dotted",
+    backgroundColor: "#fff",
+    marginBottom: "1%",
+    marginTop: "2%",
+    alignItems: "center",
+    margin: "5%",
+  },
+  searchTitle: {
+    fontWeight: "bold",
+    padding: "1%",
+    fontSize: 20,
+    color: "#525252",
+    flex: 1,
+  },
+  searchImage: {
+    height: 120,
+    width: 220,
+    margin: "2%",
+    flex: 2,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+
+  // TERM
+  termContainer: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+  termTitle: {
+    fontWeight: "bold",
+    fontSize: 25,
+    padding: "5%",
+    // paddingBottom: "1%",
+    paddingTop: "7%",
+    alignSelf: "center",
+  },
+  termImage: {
+    position: "relative",
+    height: 210,
+    width: 310,
+    margin: "2%",
+    padding: "3%",
+    borderRadius: 7,
+    borderWidth: 3,
+    borderColor: "#dedede",
+    backgroundColor: "white",
+    borderRadius: 10,
+    // alignSelf: "center",
+  },
+  termAudioPlayer: {
+    flex: 6,
+    backgroundColor: "white",
+    marginLeft: 20,
+    marginRight: 10,
+    borderColor: "#dedede",
+    borderWidth: 3,
+    borderBottomStartRadius: 15,
+    borderBottomEndRadius: 15,
+    borderTopStartRadius: 15,
+    borderTopEndRadius: 15,
+  },
+  termText: {
+    fontSize: 15,
+    margin: "3%",
+    backgroundColor: "#fff",
+    padding: "3%",
+    borderRadius: 7,
+    borderWidth: 3,
+    borderColor: "#dedede",
+    alignSelf: "center",
+    borderStyle: "dotted",
+  },
+
+  // SETTINGS
+  containerSettings: {
+    // flex: 4,
+    // flexDirection: "column",
+    // alignItems: "center",
+    // justifyContent: "space-evenly",
+    flex: 1,
+    justifyContent: "space-evenly",
+  },
+  // HEADER SETTINGS/LANGUAGES
+  myHeaderView: {
+    flex: 0.9,
+    backgroundColor: "#FF4E40",
+    alignSelf: "stretch",
+    justifyContent: "center",
+  },
+  myHeaderText: {
+    flex: 1,
+    textAlign: "center",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 22,
+    paddingTop: 20,
+  },
+  myHeaderTextSearch: {
+    flex: 1,
+    textAlign: "center",
+    alignSelf: "center",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 22,
+    paddingTop: 20,
+  },
+  myHeaderViewSearch: {
+    flex: 0,
+    flexDirection: "row",
+    paddingVertical: 10,
+    backgroundColor: "orange",
+    alignSelf: "stretch",
+    justifyContent: "center",
+  },
+  myHeaderViewLangs: {
+    flex: 0,
+    flexDirection: "row",
+    paddingVertical: 10,
+    backgroundColor: "#FF4E40",
+    alignSelf: "stretch",
+    justifyContent: "center",
+  },
+  myHeaderViewHelp: {
+    flex: 0,
+    paddingVertical: 10,
+    backgroundColor: "#0090d2",
+    alignSelf: "stretch",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  myHeaderViewFav: {
+    flex: 0,
+    flexDirection: "row",
+    paddingVertical: 10,
+    backgroundColor: "#FF4E40",
+    alignSelf: "stretch",
+    // justifyContent: "center",
+  },
+  myHeaderViewSettings: {
+    flex: 0,
+    paddingVertical: 10,
+    backgroundColor: "#FF4E40",
+    alignSelf: "stretch",
+    flexDirection: "row",
+    //justifyContent: "center",
+  },
+  myHeaderViewMap: {
+    flex: 0,
+    flexDirection: "row",
+    paddingVertical: 10,
+    backgroundColor: "#0090d2",
+    alignSelf: "stretch",
+    // justifyContent: "center",
+  },
+
+  // DOWNLOADS
+  containerDownloads: {
+    flex: 1,
+    //alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+
+  // HEADER DOWNLOADS
+  myHeaderViewD: {
+    flex: 0,
+    paddingVertical: 10,
+    backgroundColor: "#7fd13a",
+    alignSelf: "stretch",
+    //justifyContent: "center",
+  },
+  myHeaderTextD: {
+    alignSelf: "center",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 22,
+    paddingTop: 20,
+  },
+
+  // INFO/HELP
+  containerInfo: {
+    flex: 1,
+    justifyContent: "space-evenly",
+  },
+  sectionBox: {
+    backgroundColor: "white",
+    marginHorizontal: "5%",
+    marginTop: "5%",
+    borderWidth: 3,
+    borderColor: "#0090d2",
+    borderBottomStartRadius: 15,
+    borderBottomEndRadius: 15,
+    borderTopStartRadius: 15,
+    borderTopEndRadius: 15,
+  },
+  sectionTitle: {
+    flex: 1,
+    borderColor: "#0090d2",
+    borderWidth: 3,
+    borderRadius: 15,
+    backgroundColor: "white",
+    fontSize: 16,
+    padding: 10,
+    fontWeight: "bold",
+    margin: 3,
+    textAlign: "center",
+  },
+  sectionImage: {
+    height: 140,
+    width: 150,
+  },
+  sectionImgBtn: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    margin: 5,
+  },
+  infoPlayBtn: {
+    paddingTop: "13%",
+  },
+  howToContainer: {
+    flex: 1,
+    marginTop: 50,
+    margin: 15,
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  // DOWNLOAD
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  alert_container: {
+    flex: 10,
+    width: 200,
+    marginTop: 250,
+    marginBottom: 250,
+    padding: 10,
+    borderRadius: 20,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    backgroundColor: "white",
+  },
+
+  progressBar: {
+    height: 20,
+    flexDirection: "row",
+    width: "100%",
+    backgroundColor: "white",
+    borderColor: "#000",
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+
+  iOSBackdrop: {
+    backgroundColor: "#000000",
+    opacity: 0.3,
+  },
+  androidBackdrop: {
+    backgroundColor: "#232f34",
+    opacity: 0.4,
+  },
+  backdrop: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+  historyDropDown: {
+    width: "90%",
+    backgroundColor: "#fff",
+    marginHorizontal: "5%",
+    borderColor: "#ccc",
+    borderWidth: 3,
+    borderTopWidth: 0,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    marginTop: Platform.OS === "ios" ? 65 : 76,
+    height: 170,
+    position: "absolute",
+    zIndex: 99999,
+  },
+  historyText: {
+    padding: 15,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  historyList: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+});

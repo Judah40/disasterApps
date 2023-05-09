@@ -1,0 +1,6 @@
+module Pods_DRRapp {
+  umbrella header "Pods-DRRapp-umbrella.h"
+
+  export *
+  module * { export * }
+}
