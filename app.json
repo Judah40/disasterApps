@@ -8,9 +8,17 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "8dde6360-7027-49c8-ba36-3e02378321b7"
+        "projectId": "c0c8ba1d-0b47-41a8-a991-83cd2651415f"
       }
+    },
+    "android": {
+      "package": "com.ymcasl.MyReactNativeProject"
+    },
+    "web": {
+      "bundler": "metro"
     }
   },
-  "name": "MyReactNativeProject"
+  "name": "MyReactNativeProject",
+  "scheme": "your-app-scheme"
+
 }

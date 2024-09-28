@@ -1,41 +1,38 @@
 import React from "react";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
 import Languages from "./app/screens/Languages";
 import Welcome from "./app/screens/Welcome";
 import BottomTabNav from "./BottomTabNav";
 import "react-native-gesture-handler";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 
-export default function App() {
-  return <AppContainer />;
-}
-
-const AppNavigator = createStackNavigator(
-  {
-    Welcome: {
-      screen: Welcome,
-      navigationOptions: {
+const Stack = createNativeStackNavigator();
+const App = () => {
+  return (
+    <NavigationContainer
+    
+    >
+      <Stack.Navigator
+      screenOptions={{
         headerShown: false,
-      },
-    },
-    Languages: {
-      screen: Languages,
-      navigationOptions: {
-        headerShown: false,
-        headerBackTitle: "none",
-        headerBackTitleVisible: false,
-      },
-    },
-    BottomTabNav: { screen: BottomTabNav },
-  },
-  {
-    initialRouteName: "Welcome",
-    navigationOptions: {
-      headerBackTitle: "none",
-      headerBackTitleVisible: false,
-      headerMode: "screen",
-    },
-  }
-);
+      }}
+      >
+        <Stack.Screen
+          name="Welcome"
+          component={Welcome}
+        
+        />
+        <Stack.Screen
+          name="Languages"
+          component={Languages}
+         
+        />
+        <Stack.Screen name="Tabs" component={BottomTabNav}
+        
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
-const AppContainer = createAppContainer(AppNavigator);
+export default App;

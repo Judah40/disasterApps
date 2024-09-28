@@ -8,9 +8,7 @@ export function CheckError(response) {
     } else {
       // if fail
 
-      console.log("Error.");
     }
   } catch (error) {
-    console.log("-----", error);
   }
 }

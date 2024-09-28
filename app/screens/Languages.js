@@ -1,139 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { View, ImageBackground, Text, FlatList } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
-import { styles } from '../components/styles';
-import ButtonSL from '../components/ButtonSL';
-import langButtonsHardCode from '../components/langButtons.json';
-import { CheckError } from '../components/checkErrorFn';
-import { getPageTitle, setLanguage, getLanguage } from '../components/commonFn';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  ImageBackground,
+  Text,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
+import ButtonSL from "../components/ButtonSL";
+import { setLanguage } from "../components/commonFn";
+import { getAllLanguages } from "../api";
 
 const Languages = ({ navigation }) => {
-  const [langButtons, setLangButtons] = useState('');
+  
+  const [langButtons, setLangButtons] = useState();
   useEffect(() => {
-    getLanguage().then((language) => {
-      setLanguage(language.toLowerCase());
-      //console.log("getLanguage Languages Page ----->", language);
-      APIfetch(language);
-    });
-  }, []);
-
-  // ---GET LANGUAGE FROM ASYNCSTORAGE-------------------------------------------------------------------------------------------------------------------------------------------------------------
-  const [language, setLanguageTerms] = useState('');
-  const setDefaultLanguage = async () => {
-    getLanguage().then((language) => {
-      setLanguageTerms(language);
-      //console.log("setLanguageTerms Search Page ----->", language);
-      APIfetch(language);
-    });
-  };
-
-  const defaultProcessing = async () => {
-    try {
-      var allLanguages = await AsyncStorage.getItem('all-languages');
-      allLanguages = JSON.parse(allLanguages);
-      if (allLanguages != null) {
-        console.log('AsyncStorage Terms fetch success.');
-        setLangButtons(allLanguages);
-      }
-      if (allLanguages == null) {
-        console.log('Languages Page: Fetch Terms failed', allLanguages);
-        try {
-          setLangButtons(langButtonsHardCode);
-        } catch (err) {
-          Alert.alert('There was a problem. Please contact Admin.');
-          console.log('internal file langButtons error: ', err);
-        }
-      }
-    } catch (err) {
-      console.log('Error Languages Page: ', err);
-    }
-  };
-
-  const APIfetch = async () => {
-    const url = `https://ymcadrr.southafricanorth.cloudapp.azure.com/api/languages`;
-    //console.log(url);
-
-    fetch(url)
-      .then(CheckError)
-      .then((data) => {
-        console.log('Succesful connection to api');
-        if (data.length) {
-          setLangButtons(data);
-        } else {
-          console.log(
-            'Error: There is a problem with the database. The successful terms fetch was empty'
-          );
-          defaultProcessing().then(() => {});
-          // Alert.alert("There was a problem. Please contact Admin.");
-        }
+    getAllLanguages()
+      .then((value) => {
+        console.log(value.data.data);
+        setLangButtons(value.data.data);
       })
-      .catch((error) => {
-        try {
-          console.log(
-            error,
-            'Languages page: Connection failed. Offline mode on. '
-          );
-          defaultProcessing().then(() => {});
-        } catch {
-          console.log('Error: AsyncStorage is likely empty');
-          Alert.alert('Please Download terms');
-          navigation.navigate('Downloads');
-        }
+      .catch((err) => {
+        console.log(err.response.data);
       });
-  };
-
-  // PAGE TITLE
-  const [pageTitle, setPageTitle] = useState('');
-  useEffect(() => {
-    try {
-      getPageTitle('languages').then((result) => {
-        setPageTitle(result);
-      });
-    } catch {
-      console.log("Error: couldn't get pageTitle");
-    }
-  }, [language]);
-
+  }, []);
   return (
-    <View>
-      <NavigationEvents
-        onDidFocus={() => {
-          setDefaultLanguage();
-          console.log('Languages page loaded');
-        }}
-      />
-
-      {/* BACKGROUND IMAGE*/}
-      <ImageBackground
-        source={require('../assets/clouds.jpeg')}
-        style={styles.backGroundImage}
-      >
-        {/* HEADER*/}
-        <View style={styles.myHeaderViewLangs}>
-          <Text style={styles.myHeaderText}>{pageTitle}</Text>
+    <ImageBackground
+      source={require("../assets/abstract-pattern-coloured-oil-bubbles-water.jpg")}
+      className="flex-1 items-center justify-center space-y-2"
+    >
+      <View className="w-11/12 items-center">
+        <Text className="text-xl font-semibold">Select Language</Text>
+      </View>
+      {/* BUTTONS CONTAINER */}
+      <View className="h-3/6 rounded-lg items-center bg-white w-11/12 px-4">
+        <View className="mt-4">
+          {!langButtons && <ActivityIndicator color={"gray"} />}
         </View>
-
-        {/* BUTTONS CONTAINER */}
-        <View style={styles.containerSL}>
-          <FlatList
-            data={langButtons}
-            keyExtractor={(item) => item.name}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => {
-              return (
-                <ButtonSL
-                  lang={item.name}
-                  onPress={() => {
-                    setLanguage(item.name), navigation.navigate('SearchClass');
-                  }}
-                />
-              );
-            }}
-          />
-        </View>
-      </ImageBackground>
-    </View>
+        <FlatList
+          data={langButtons}
+          keyExtractor={(item) => item.languageId}
+          showsVerticalScrollIndicator={false}
+          className="w-11/12 "
+          renderItem={({ item }) => {
+            return (
+              <ButtonSL
+                lang={item.languageName}
+                onPress={() => {
+                  setLanguage(item.languageName),
+                    navigation.navigate("Tabs");
+                }}
+              />
+            );
+          }}
+        />
+      </View>
+    </ImageBackground>
   );
 };
 

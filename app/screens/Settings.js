@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
 import { getPageTitle, getLanguage } from "../components/commonFn";
 import {
   View,
@@ -14,6 +14,7 @@ import { styles } from "../components/styles";
 import * as SMS from "expo-sms";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import * as Location from "expo-location";
+import { SafeAreaView } from "react-native";
 
 const Settings = ({ navigation }) => {
   // NOTE:
@@ -30,7 +31,7 @@ const Settings = ({ navigation }) => {
       var myLocation = await Location.getCurrentPositionAsync();
       //myLocation.coords
       location = myLocation.coords.latitude + "," + myLocation.coords.longitude;
-      //console.log(location);
+      //// // console.log(location);
     }
     const isSMSa = await SMS.isAvailableAsync();
     if (isSMSa) {
@@ -40,7 +41,7 @@ const Settings = ({ navigation }) => {
       ]);
     } else {
       Alert.alert("COMING SOON...", "Thank you for your patience :)");
-      // console.log("Emergency SMS function.");
+      // // // console.log("Emergency SMS function.");
     }
     // FUNCTION TO USE FOR SENDING AN EMAIL VIA SERVER
     // THE SERVER HAS TO BE SET UP WITH AN EMAIL RECEIVER (AND POTENTIALLY SENDER)
@@ -58,12 +59,12 @@ const Settings = ({ navigation }) => {
     //   .then((result) => result.json())
     //   .then((response) => {
     //     //handle result
-    //     console.log(response);
+    //     // // console.log(response);
     //   })
     //   .catch((error) => {
     //     //diplay error
     //     Alert.alert("EMERGENCY BUTTON", "Coming soon...");
-    //     console.log("Emergency function: ", error);
+    //     // // console.log("Emergency function: ", error);
     //   });
   };
 
@@ -74,7 +75,7 @@ const Settings = ({ navigation }) => {
   const setDefaultLanguage = async () => {
     getLanguage().then((language) => {
       setLanguageTerms(language);
-      //console.log("setLanguageTerms Search Page ----->", language);
+      //// // console.log("setLanguageTerms Search Page ----->", language);
     });
   };
 
@@ -93,7 +94,7 @@ const Settings = ({ navigation }) => {
   useEffect(() => {
     getLanguage().then((language) => {
       setLanguageTerms(language);
-      // console.log("setLanguageTerms Search Page ----->", language);
+      // // // console.log("setLanguageTerms Search Page ----->", language);
     });
   }, []);
   // PAGE TITLE
@@ -104,7 +105,7 @@ const Settings = ({ navigation }) => {
         setPageTitle(result);
       });
     } catch {
-      console.log("Error: couldn't get pageTitle");
+      // // console.log("Error: couldn't get pageTitle");
     }
   }, [language]);
 
@@ -113,67 +114,45 @@ const Settings = ({ navigation }) => {
   });
 
   return (
-    <View>
-      <NavigationEvents
-        onFocus={() => {
-          setDefaultLanguage();
-        }}
-      />
+    <SafeAreaView className="flex-1 bg-green-200">
       {/* BACKGROUND IMAGE*/}
-      <ImageBackground
-        source={require("../assets/clouds.jpeg")}
-        style={styles.backGroundImage}
-      >
-        {/* HEADER*/}
-        <View style={styles.myHeaderViewSettings}>
-          <Text style={styles.myHeaderText}>{pageTitle}</Text>
+      <View className="flex-1">
+        <View className="w-full px-4  flex-row justify-between items-center">
+          <Text className="text-lg font-bold">Setting</Text>
+          {/* {pageTitle} */}
         </View>
 
         {/* SETTINGS CONTAINER */}
 
-        <View style={styles.containerSettings}>
-          <View
-            style={{
-              flexDirection: orientation == "lanscale" ? "row" : "column",
-            }}
-          >
-            <TouchableOpacity
-              title="Languages"
-              onPress={() => navigation.navigate("Languages")}
-              style={{
-                alignItems: "center",
-                marginVertical: 25,
-                flex: orientation == "lanscale" ? 1 : 0,
-              }}
-            >
-              <MaterialIcons
-                style={{ alignSelf: "center" }}
-                name="language"
-                size={100}
-                color={"#FF4E40"}
-              />
-              <Text style={styles.bold}>Change Language</Text>
-            </TouchableOpacity>
+        <View>
+          <View>
+            <View className="flex-row w-full justify-between px-10">
+              <TouchableOpacity
+                title="Languages"
+                onPress={() => navigation.navigate("Languages")}
+                className="items-center"
+              >
+                <MaterialIcons name="language" size={100} color={"#FF4E40"} />
+                <Text style={styles.bold}>Change Language</Text>
+              </TouchableOpacity>
 
-            {/* <TouchableOpacity title="Emergency" onPress={() => reportEvent()}> */}
+              {/* <TouchableOpacity title="Emergency" onPress={() => reportEvent()}> */}
 
-            <TouchableOpacity
-              title="Emergency"
-              onPress={() => alertTemp()}
-              style={{
-                alignItems: "center",
-                marginVertical: 25,
-                flex: orientation == "lanscale" ? 1 : 0,
-              }}
-            >
-              <MaterialIcons
-                style={{ alignSelf: "center" }}
-                name="notification-important"
-                size={100}
-                color={"red"}
-              />
-              <Text style={[styles.bold, { color: "red" }]}>REPORT EVENT</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                title="Emergency"
+                onPress={() => alertTemp()}
+                className="items-center"
+              >
+                <MaterialIcons
+                  name="notification-important"
+                  size={100}
+                  color={"red"}
+                />
+                <Text style={[styles.bold, { color: "red" }]}>
+                  REPORT EVENT
+                </Text>
+              </TouchableOpacity>
+            </View>
 
             <TouchableOpacity
               title="Languages"
@@ -183,14 +162,9 @@ const Settings = ({ navigation }) => {
                   "To let us know what you think about this app, please email info.drr.app@gmail.com Thank you :)"
                 )
               }
-              style={{
-                alignItems: "center",
-                marginVertical: 25,
-                flex: orientation == "lanscale" ? 1 : 0,
-              }}
+              className="px-10 items-center"
             >
               <MaterialIcons
-                style={{ alignSelf: "center" }}
                 name="local-post-office"
                 size={100}
                 color={"#F9A603"}
@@ -199,8 +173,8 @@ const Settings = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-      </ImageBackground>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 

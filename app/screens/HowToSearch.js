@@ -20,9 +20,7 @@ const HowToSearch = ({ navigation }) => {
       getPageTitle("howtoS").then((result) => {
         setPageTitle(result);
       });
-    } catch {
-      console.log("Error: couldn't get pageTitle");
-    }
+    } catch {}
   }, []);
 
   const videoURI =
@@ -35,7 +33,6 @@ const HowToSearch = ({ navigation }) => {
       FileSystem.documentDirectory + "searchVideo.mp4"
     );
     if (!dirInfo.exists) {
-      console.log("Gif directory doesn't exist, creating...");
       //await FileSystem.makeDirectoryAsync(gifDir, { intermediates: true });
 
       try {
@@ -46,7 +43,6 @@ const HowToSearch = ({ navigation }) => {
         );
 
         setVideoLink(uri);
-        console.log("path", uri);
         setOnline(false);
       } catch {
         setOnline(true);
@@ -65,28 +61,8 @@ const HowToSearch = ({ navigation }) => {
   const [online, setOnline] = useState(null);
 
   return (
-    <View>
-      <ImageBackground
-        source={require("../assets/clouds.jpeg")}
-        style={styles.backGroundImage}
-      >
-        {/* HEADER*/}
-        <View style={styles.myHeaderViewHelp}>
-          <TouchableOpacity
-            style={{ justifyContent: "flex-start" }}
-            onPress={() => {
-              navigation.navigate("InfoClass");
-            }}
-          >
-            <AntDesign
-              name="left"
-              size={30}
-              color="white"
-              style={{ marginTop: 20, marginLeft: 1 }}
-            />
-          </TouchableOpacity>
-          <Text style={styles.myHeaderText}>{pageTitle}</Text>
-        </View>
+    <View className="flex-1 ">
+      <View className="flex-1">
         <ScrollView>
           <View style={styles.howToContainer}>
             <View style={{ alignSelf: "center" }}>
@@ -116,7 +92,7 @@ const HowToSearch = ({ navigation }) => {
             </View>
           </View>
         </ScrollView>
-      </ImageBackground>
+      </View>
     </View>
   );
 };

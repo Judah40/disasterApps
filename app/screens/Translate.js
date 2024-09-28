@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, ImageBackground, Text, FlatList, Alert } from "react-native";
 import { styles } from "../components/styles";
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
 import ButtonSL from "../components/ButtonSL";
 import langButtonsHardCode from "../components/langButtons.json";
 import { getPageTitle, setLanguage, getLanguage } from "../components/commonFn";
@@ -13,7 +13,7 @@ const Translate = ({ navigation }) => {
   useEffect(() => {
     getLanguage().then((language) => {
       setLanguage(language.toLowerCase());
-      //console.log("getLanguage Languages Page ----->", language);
+      //// // console.log("getLanguage Languages Page ----->", language);
       APIfetch(language);
     });
   }, []);
@@ -21,7 +21,7 @@ const Translate = ({ navigation }) => {
   const setDefaultLanguage = async () => {
     getLanguage().then((language) => {
       setLanguageTerms(language);
-      //console.log("setLanguageTerms Search Page ----->", language);
+      //// // console.log("setLanguageTerms Search Page ----->", language);
       APIfetch(language);
     });
   };
@@ -30,50 +30,49 @@ const Translate = ({ navigation }) => {
       var allLanguages = await AsyncStorage.getItem("all-languages");
       allLanguages = JSON.parse(allLanguages);
       if (allLanguages != null) {
-        console.log("AsyncStorage Terms fetch success.");
         setLangButtons(allLanguages);
       }
       if (allLanguages == null) {
-        console.log("Translate Page: Fetch Terms failed", allLanguages);
+        // // console.log("Translate Page: Fetch Terms failed", allLanguages);
         try {
           setLangButtons(langButtonsHardCode);
         } catch (err) {
           Alert.alert("There was a problem. Please contact Admin.");
-          console.log("internal file langButtons error: ", err);
+          // // console.log("internal file langButtons error: ", err);
         }
       }
     } catch (err) {
-      console.log("Error Translate Page: ", err);
+      // // console.log("Error Translate Page: ", err);
     }
   };
 
   const APIfetch = async () => {
     const url = `https://ymcadrr.southafricanorth.cloudapp.azure.com/api/languages`;
-    //console.log(url);
+    //// // console.log(url);
 
     fetch(url)
       .then(CheckError)
       .then((data) => {
-        console.log("Succesful connection to api");
+        // // console.log("Succesful connection to api");
         if (data.length) {
           setLangButtons(data);
         } else {
-          console.log(
-            "Error: There is a problem with the database. The successful terms fetch was empty"
-          );
+          // // console.log(
+          //   "Error: There is a problem with the database. The successful terms fetch was empty"
+          // );
           defaultProcessing().then(() => { });
           // Alert.alert("There was a problem. Please contact Admin.");
         }
       })
       .catch((error) => {
         try {
-          console.log(
-            error,
-            "Translate page: Connection failed. Offline mode on. "
-          );
+          // // console.log(
+          //   error,
+          //   "Translate page: Connection failed. Offline mode on. "
+          // );
           defaultProcessing().then(() => { });
         } catch {
-          console.log("Error: AsyncStorage is likely empty");
+          // // console.log("Error: AsyncStorage is likely empty");
           Alert.alert("Please Download terms");
           navigation.navigate("Downloads");
         }
@@ -85,7 +84,7 @@ const Translate = ({ navigation }) => {
       var terms = await AsyncStorage.getItem(language.toLowerCase());
       terms = JSON.parse(terms);
       if (terms != null) {
-        console.log("AsyncStorage Terms fetch success.");
+        // // console.log("AsyncStorage Terms fetch success.");
         let my_terms = terms.filter(
           (item) => item.termNumber === navigation.state.params.term_number
         );
@@ -99,21 +98,21 @@ const Translate = ({ navigation }) => {
         }
       }
       if (terms == null) {
-        console.log("Translate Page: Fetch Terms failed");
+        // // console.log("Translate Page: Fetch Terms failed");
       }
     } catch {
-      console.log("------------");
+      // // console.log("------------");
     }
   };
 
   const termAPIfetch = async (language) => {
     const url = `https://ymcadrr.southafricanorth.cloudapp.azure.com/api/${language}/terms`;
-    //console.log(url);
+    //// // console.log(url);
 
     fetch(url)
       .then(CheckError)
       .then((data) => {
-        console.log("Succesful connection to api ===", data.length);
+        // // console.log("Succesful connection to api ===", data.length);
         if (data.length) {
           let my_terms = data.filter(
             (item) => item.termNumber === navigation.state.params.term_number
@@ -127,18 +126,18 @@ const Translate = ({ navigation }) => {
             navigation.navigate("Term", { item: my_terms[0] });
           }
         } else {
-          console.log(
-            "Error: There is a problem with the database. The successful terms fetch was empty"
-          );
+          // // console.log(
+          //   "Error: There is a problem with the database. The successful terms fetch was empty"
+          // );
           Alert.alert("There was a problem. Please contact Admin.");
         }
       })
       .catch((error) => {
         try {
-          console.log(error, "Translate page: Connection failed.");
+          // // console.log(error, "Translate page: Connection failed.");
           termDefaultProcessing(language).then(() => { });
         } catch {
-          console.log("Error: AsyncStorage is likely empty");
+          // // console.log("Error: AsyncStorage is likely empty");
           Alert.alert("Please Download terms");
           navigation.navigate("Downloads");
         }
@@ -154,7 +153,7 @@ const Translate = ({ navigation }) => {
         setPageTitle(result);
       });
     } catch {
-      console.log("Error: couldn't get pageTitle");
+      // // console.log("Error: couldn't get pageTitle");
     }
   }, []);
 
@@ -163,7 +162,7 @@ const Translate = ({ navigation }) => {
       <NavigationEvents
         onDidFocus={() => {
           setDefaultLanguage();
-          console.log("Translate page loaded");
+          // // console.log("Translate page loaded");
         }}
       />
       {/* BACKGROUND IMAGE*/}

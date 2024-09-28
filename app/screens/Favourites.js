@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import { styles } from "../components/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getPageTitle, getLanguage } from "../components/commonFn";
 import { CheckError } from "../components/checkErrorFn";
+import { SafeAreaView } from "react-native";
 
 const Favourites = ({ navigation }) => {
   const [data, setData] = useState("");
@@ -29,9 +30,7 @@ const Favourites = ({ navigation }) => {
       getPageTitle("favs").then((result) => {
         setPageTitle(result);
       });
-    } catch {
-      console.log("Error: couldn't get pageTitle");
-    }
+    } catch {}
   }, [language]);
 
   const [fav, setFav] = useState([]);
@@ -42,7 +41,7 @@ const Favourites = ({ navigation }) => {
 
   const getFav = async () => {
     var saved = await AsyncStorage.getItem("favourites");
-    // console.log(saved);
+    // // // console.log(saved);
     var list = [];
     if (saved != null) {
       list = JSON.parse(saved);
@@ -60,16 +59,12 @@ const Favourites = ({ navigation }) => {
         terms = terms.filter(function (terms) {
           return fav.includes(terms.termNumber);
         });
-        console.log(" Favourites Page: AsyncStorage Terms fetch success.");
         setData(terms);
         stateSetFilteredData(terms);
       }
       if (terms == null) {
-        console.log("Favs Page: Fetch Terms failed");
       }
-    } catch {
-      console.log("------------");
-    }
+    } catch {}
   };
 
   // ---GET LANGUAGE FROM ASYNCSTORAGE-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +72,7 @@ const Favourites = ({ navigation }) => {
   useEffect(() => {
     getLanguage().then((language) => {
       setLanguageTerms(language);
-      //console.log("setLanguageTerms Favs Page ----->", language);
+      //// // console.log("setLanguageTerms Favs Page ----->", language);
       APIfetch(language);
     });
   }, []);
@@ -86,7 +81,6 @@ const Favourites = ({ navigation }) => {
   const setDefaultLanguage = async () => {
     getLanguage().then((language) => {
       setLanguageTerms(language);
-      console.log("setLanguageTerms Favs Page ----->", language);
       APIfetch(language);
     });
   };
@@ -95,12 +89,11 @@ const Favourites = ({ navigation }) => {
 
   const APIfetch = async (language) => {
     const url = `https://ymcadrr.southafricanorth.cloudapp.azure.com/api/${language}/terms`;
-    //console.log(url);
+    //// // console.log(url);
 
     fetch(url)
       .then(CheckError)
       .then((data) => {
-        console.log("Succesful connection to api ===", data.length);
         if (data.length) {
           data = data.filter(function (data) {
             return fav.includes(data.termNumber);
@@ -109,10 +102,8 @@ const Favourites = ({ navigation }) => {
           stateSetFilteredData(data);
         } else {
           try {
-            console.log("Favourites page: Connection failed.");
-            defaultProcessing(language).then(() => { });
+            defaultProcessing(language).then(() => {});
           } catch {
-            console.log("Error: AsyncStorage is likely empty");
             Alert.alert(
               "There was a problem",
               "Please Download content when online"
@@ -161,7 +152,7 @@ const Favourites = ({ navigation }) => {
     // FUNCTION TO USE FOR HISTORY
     // Recently seen terms function. Saves history and updates
     var saved = await AsyncStorage.getItem("history");
-    //console.log(saved);
+    //// // console.log(saved);
     var list = [];
     if (saved != null) {
       list = JSON.parse(saved);
@@ -186,14 +177,14 @@ const Favourites = ({ navigation }) => {
   // useEffect(() => {
   //   getHistoryList();
   // }, []);
-  const getHistoryList = async () => {
-    var saved = await AsyncStorage.getItem("history");
-    var list = [];
-    if (saved != null) {
-      list = JSON.parse(saved);
-    }
-    setHistoryList(list);
-  };
+  // const getHistoryList = async () => {
+  //   var saved = await AsyncStorage.getItem("history");
+  //   var list = [];
+  //   if (saved != null) {
+  //     list = JSON.parse(saved);
+  //   }
+  //   setHistoryList(list);
+  // };
 
   // ---HANDLES SEARCH TEXT INPUT-------------------------------------------------------------------------------------------------------------------------------------------------------------
   const searchFunction = (text) => {
@@ -223,117 +214,12 @@ const Favourites = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <NavigationEvents
-        onDidFocus={() => {
-          getFav();
-          setDefaultLanguage();
-          getHistoryList();
-          stateSetSearchValue("");
-          console.log("FAVS page loaded");
-        }}
-      />
-
+    <SafeAreaView className="flex-1 bg-red-500">
       {/* BACKGROUND IMAGE*/}
-      <ImageBackground
-        source={require("../assets/clouds.jpeg")}
-        style={styles.backGroundImage}
-      >
-        {/* HEADER*/}
-        <View style={styles.myHeaderViewFav}>
-          <TouchableOpacity
-            style={{ justifyContent: "center" }}
-            onPress={() => {
-              navigation.navigate("SearchClass");
-            }}
-          >
-            <AntDesign
-              name="left"
-              size={30}
-              color="white"
-              style={{ marginTop: 20, marginLeft: 1 }}
-            />
-          </TouchableOpacity>
-
-          <Text style={styles.myHeaderText}>{pageTitle}</Text>
-        </View>
-
+      <View>
         <View style={{ flex: 1 }}>
-          {/* Note: Press CMD+K to open a Keyboard in Expo Simulator */}
-          <View style={styles.searchBar__unclicked}>
-            {/* SEARCHBAR ICON */}
-            <View style={{ justifyContent: "center", padding: "3%" }}>
-              <Feather name="search" size={15} color="black" />
-            </View>
-
-            {/* SEARCHBAR INPUT */}
-            <TextInput
-              style={styles.input}
-              placeholder="Search ..."
-              value={searchValue}
-              onChangeText={(text) => searchFunction(text)}
-              onClear={(text) => searchFunction(text)}
-              autoCorrect={false}
-            />
-
-            {/* History ICON */}
-            <TouchableOpacity onPress={() => setShowHistory(!showHistory)}>
-              <View
-                style={{
-                  justifyContent: "center",
-                  padding: 3,
-                  marginRight: 5,
-                  marginTop: 15,
-                }}
-              >
-                <AntDesign
-                  name={showHistory == false ? "caretdown" : "caretup"}
-                  size={15}
-                  color="black"
-                />
-              </View>
-            </TouchableOpacity>
-            {/* Clear search text input button */}
-            <TouchableOpacity
-              onPress={() => {
-                stateSetSearchValue("");
-                setDefaultLanguage();
-                setShowHistory(false);
-              }}
-            >
-              <View
-                style={{
-                  justifyContent: "center",
-                  padding: 5,
-                  paddingRight: 5,
-                  marginTop: 15,
-                  marginLeft: 3,
-                  marginRight: 7,
-                }}
-              >
-                <AntDesign name={"closecircle"} size={15} color="#ccc" />
-              </View>
-            </TouchableOpacity>
-          </View>
-          {showHistory == true && (
-            <View style={styles.historyDropDown}>
-              <ScrollView>
-                <View>
-                  {historyList.reverse().map((data, index) => {
-                    return (
-                      <TouchableOpacity
-                        key={index}
-                        onPress={() => searchFunction(data)}
-                        style={styles.historyList}
-                      >
-                        <Text style={styles.historyText}>{data}</Text>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </View>
-              </ScrollView>
-            </View>
-          )}
+         
+       
           {/* TERMS CONTAINER */}
           <View style={styles.searchContainer}>
             <FlatList
@@ -343,8 +229,8 @@ const Favourites = ({ navigation }) => {
             />
           </View>
         </View>
-      </ImageBackground>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 

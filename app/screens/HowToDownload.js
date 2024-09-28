@@ -22,7 +22,6 @@ const HowToDownload = ({ navigation }) => {
         setPageTitle(result);
       });
     } catch {
-      console.log("Error: couldn't get pageTitle");
     }
   }, []);
 
@@ -36,10 +35,9 @@ const HowToDownload = ({ navigation }) => {
       FileSystem.documentDirectory + "downloadVideo.mp4"
     );
     if (!dirInfo.exists) {
-      console.log("Gif directory doesn't exist, creating...");
-      await FileSystem.makeDirectoryAsync(gifDir, { intermediates: true });
-
+      
       try {
+        await FileSystem.makeDirectoryAsync(gifDir, { intermediates: true });
         const { uri } = await FileSystem.downloadAsync(
           videoURI,
           FileSystem.documentDirectory + "downloadVideo.mp4",
@@ -47,7 +45,6 @@ const HowToDownload = ({ navigation }) => {
         );
 
         setVideoLink(uri);
-        console.log("path", uri);
         setOnline(false);
       } catch {
         setOnline(true);
@@ -66,27 +63,10 @@ const HowToDownload = ({ navigation }) => {
   const [online, setOnline] = useState(null);
   return (
     <View>
-      <ImageBackground
-        source={require("../assets/clouds.jpeg")}
-        style={styles.backGroundImage}
+      <View
+     className="flex-1 bg-red-500"
       >
-        {/* HEADER*/}
-        <View style={styles.myHeaderViewHelp}>
-          <TouchableOpacity
-            style={{ justifyContent: "flex-start" }}
-            onPress={() => {
-              navigation.navigate("InfoClass");
-            }}
-          >
-            <AntDesign
-              name="left"
-              size={30}
-              color="white"
-              style={{ marginTop: 20, marginLeft: 1 }}
-            />
-          </TouchableOpacity>
-          <Text style={styles.myHeaderText}>{pageTitle}</Text>
-        </View>
+       
         <ScrollView>
           <View style={styles.howToContainer}>
             <View style={{ alignSelf: "center" }}>
@@ -116,7 +96,7 @@ const HowToDownload = ({ navigation }) => {
             </View>
           </View>
         </ScrollView>
-      </ImageBackground>
+      </View>
     </View>
   );
 };

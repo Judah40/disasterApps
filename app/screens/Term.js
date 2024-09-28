@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ImageModal from "react-native-image-modal";
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
 import {
   View,
   Text,
@@ -12,6 +11,7 @@ import {
   Share,
   Modal,
 } from "react-native";
+import ImageView from "react-native-image-viewing";
 import { FontAwesome, Entypo, Ionicons } from "@expo/vector-icons";
 import { styles } from "../components/styles";
 import ButtonTranslate from "../components/ButtonTranslate";
@@ -32,7 +32,7 @@ const Term = ({ navigation }) => {
   const termPicto = navigation.state.params.item.picto;
   const termAudio = navigation.state.params.item.audio;
 
-  //console.log(termPicto);
+  //// // console.log(termPicto);
   // ---SHARE MEDIA BUTTON-----------------------------------------------------------------------------------------------------------------------------
   const share = async (title_to_share, message_to_share, url_to_share) => {
     try {
@@ -43,12 +43,9 @@ const Term = ({ navigation }) => {
       });
       if (result.action == Share.sharedAction) {
         if (result.activityType) {
-          console.log("Shared");
         } else {
-          console.log("Not shared");
         }
       } else if (result.action == Share.dismissedAction) {
-        console.log("Dismissed");
       }
     } catch (error) {
       alert(error.message);
@@ -73,7 +70,7 @@ const Term = ({ navigation }) => {
 
   const getFav = async () => {
     var saved = await AsyncStorage.getItem("favourites");
-    // console.log(saved);
+    // // // console.log(saved);
     var list = [];
     if (saved != null) {
       list = JSON.parse(saved);
@@ -86,7 +83,7 @@ const Term = ({ navigation }) => {
 
     //AsyncStorage.removeItem("favourites");// This line clears out all favourites
     var saved = await AsyncStorage.getItem("favourites");
-    //console.log(saved);
+    //// // console.log(saved);
     var list = [];
     if (saved != null) {
       list = JSON.parse(saved);
@@ -94,7 +91,7 @@ const Term = ({ navigation }) => {
     // Check for duplicates
     if (!list.includes(item)) {
       list.push(item);
-      // console.log(item);
+      // // // console.log(item);
     } else {
       list = list.filter(function (data) {
         return data != item;
@@ -106,7 +103,7 @@ const Term = ({ navigation }) => {
   };
 
   // const audioPlayer = () => {
-  //   console.log("I got played!");
+  //   // // console.log("I got played!");
   //   return <AudioSlider audio={`${termAudio}`} />;
   // };
 
@@ -114,12 +111,15 @@ const Term = ({ navigation }) => {
     return <AudioSlider audio={`${termAudio}`} />;
   };
 
+  const [visible, setIsVisible] = useState(false);
+  const [currentImageIndex, setImageIndex] = useState(0);
+
+
   return (
     <SafeAreaView style={styles.termContainer}>
       <NavigationEvents
         onDidFocus={() => {
           audioPlayer();
-          console.log("TERM page loaded");
         }}
       />
       {/* BACKGROUND IMAGE*/}
@@ -146,12 +146,14 @@ const Term = ({ navigation }) => {
           <TouchableOpacity
             style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}
           >
-            <ImageModal
-              resizeMode="contain"
-              imageBackgroundColor="#FFFFFF"
-              style={styles.termImage}
-              source={{ uri: `${termPicto}` }}
-            />
+          <ImageView
+          images={{uri: `${termPicto}`}}
+          style={styles.termImage}
+          backgroundColor="#FFFFFF"
+          visible={visible}
+          onRequestClose={()=>{ setIsVisible(false)}}
+          />
+            
           </TouchableOpacity>
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={styles.termAudioPlayer}>{audioPlayer()}</View>

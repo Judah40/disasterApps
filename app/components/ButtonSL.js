@@ -3,9 +3,9 @@ import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 
 export default function ButtonSL({ lang, onPress }) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.buttonSL}>
-        <Text style={styles.buttonTextSL}>{lang}</Text>
+    <TouchableOpacity onPress={onPress} className="w-full p-3 items-center justify-center bg-green-100 my-4 border border-green-500">
+      <View >
+        <Text >{lang}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -12,7 +12,7 @@ import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import sleep from "./sleep";
 import DigitalTimeString from "./DigitalTimeString";
 import * as FileSystem from "expo-file-system";
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
 
 const TRACK_SIZE = 4;
 const THUMB_SIZE = 20;
@@ -104,22 +104,19 @@ export default class AudioSlider extends PureComponent {
       try {
         await this.soundObject.loadAsync({ uri: uri }); //load that mp3 into the app
       } catch (error) {
-        console.log("Error with AudioSlider online: ", error);
       }
     } else {
       try {
         await this.soundObject.loadAsync({ uri: url }); //load that mp3 into the app
       } catch (error) {
-        console.log("Error with AudioSlider offline: ", error);
       }
     }
 
-    //console.log(url);
+    //// console.log(url);
     try {
       const status = await this.soundObject.getStatusAsync(); //get some metadata about the audio file
       this.setState({ duration: status["durationMillis"] }); //take the duration and put it in duration state
     } catch (error) {
-      console.log("Error with AudioSlider offline: ", error);
     }
 
     this.state.dotOffset.addListener(() => {
@@ -152,7 +149,7 @@ export default class AudioSlider extends PureComponent {
     //   this.setState({ playing: true }); //Play button
     //   this.startMovingDot(); //circle to move in the audio player
     // } catch (err) {
-    //   console.log("Play function error on line 144: ", err);
+    //   // console.log("Play function error on line 144: ", err);
     // }
     await this.soundObject.playAsync();
     this.setState({ playing: true }); //Play button
@@ -166,7 +163,6 @@ export default class AudioSlider extends PureComponent {
       this.setState({ playing: false });
       Animated.timing(this.state.dotOffset).stop(); // Will also call animationPausedOrStopped()
     } catch (error) {
-      console.log("-- pause error", error);
     }
   };
 
@@ -193,7 +189,7 @@ export default class AudioSlider extends PureComponent {
       await this.state.dotOffset.setValue({ x: 0, y: 0 });
       await this.soundObject.setPositionAsync(0);
     } catch (error) {
-      console.log("animationPausedOrStopped error --", error);
+      // console.log("animationPausedOrStopped error --", error);
     }
   };
 
@@ -208,17 +204,15 @@ export default class AudioSlider extends PureComponent {
       this.mounted = false;
       this.soundObject = null;
     } catch (error) {
-      console.log("componentWillMount error--", error);
+      // console.log("componentWillMount error--", error);
     }
   }
 
   audioPlayer = async () => {
-    console.log("reload", this.props.audio);
     // this.loadAudio();
 
     if (this.mounted == true) {
       try {
-        console.log("Audio was reset for translated term");
         await this.soundObject.pauseAsync();
         this.setState({ dotOffset: new Animated.ValueXY(), playing: false });
         //  this.state.dotOffset.setValue({ x: 0, y: 0 });
@@ -226,42 +220,39 @@ export default class AudioSlider extends PureComponent {
         this.mounted == false;
         this.loadAudio();
       } catch (err) {
-        console.log("audioPlayer error: ", err);
       }
     } else {
-      console.log("Audio is loading, please wait...");
       try {
         this.loadAudio();
       } catch (err) {
-        console.log("audioPlayer error log2: ", err);
       }
     }
     // try {
     //   this.loadAudio();
     // } catch (err) {
-    //   console.log("----04 == line 208", err);
+    //   // console.log("----04 == line 208", err);
     // }
     // try {
     //   await this.soundObject.pauseAsync();
     // } catch (err) {
-    //   console.log("----01 -- line 213", err);
+    //   // console.log("----01 -- line 213", err);
     // }
     // try {
     //   this.setState({ dotOffset: new Animated.ValueXY(), playing: false });
     // } catch {
-    //   console.log("----02");
+    //   // console.log("----02");
     // }
     // try {
     //   await this.soundObject.setPositionAsync(0);
     // } catch (err) {
-    //   console.log("-----03 -- line 223", err);
+    //   // console.log("-----03 -- line 223", err);
     // }
     // try {
     //   this.loadAudio();
     // } catch (err) {
-    //   console.log("----04 == line 227", err);
+    //   // console.log("----04 == line 227", err);
     // }
-    //console.log("----1 -- line 230");
+    //// console.log("----1 -- line 230");
   };
 
   // quitTasks = async () => {
@@ -271,7 +262,7 @@ export default class AudioSlider extends PureComponent {
   //     this.mounted = false;
   //     this.soundObject = null;
   //   } catch {
-  //     console.log("-- Couldn't unload Audio before leaving page");
+  //     // console.log("-- Couldn't unload Audio before leaving page");
   //   }
   // };
 

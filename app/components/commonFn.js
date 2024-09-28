@@ -7,7 +7,6 @@ export async function setLanguage(language) {
   try {
     AsyncStorage.setItem("currentlang", language);
   } catch (error) {
-    console.log(error);
   }
 }
 
@@ -33,7 +32,7 @@ export async function getPageTitle(param) {
     }
     return pName;
   } catch (error) {
-    //console.log("pageName issue: ", error);
+    //// console.log("pageName issue: ", error);
   }
 }
 
@@ -42,7 +41,6 @@ export async function setTerm(term) {
   try {
     AsyncStorage.setItem("currentterm", term);
   } catch (error) {
-    console.log(error);
   }
 }
 
@@ -51,7 +49,6 @@ export async function setTermLanguage(language) {
   try {
     AsyncStorage.setItem("currenttermlang", language);
   } catch (error) {
-    console.log(error);
   }
 }
 
