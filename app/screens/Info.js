@@ -26,7 +26,13 @@ const Info = () => {
       <Stack.Screen name="Help" component={InfoClass} />
       <Stack.Screen name="HowToSearch" component={HowToSearch} />
       <Stack.Screen name="HowToDownload" component={HowToDownload} />
-      <Stack.Screen name="LanguagesMap" component={LanguagesMap} />
+      <Stack.Screen
+        name="LanguagesMap"
+        component={LanguagesMap}
+        options={{
+          headerShown: true,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -51,9 +57,9 @@ const InfoClass = ({ navigation }) => {
       {/* BACKGROUND IMAGE*/}
       <View className="flex-1">
         <View className="w-full px-4  flex-row justify-between items-center">
-        <Text className="text-lg font-bold">Help</Text>
-        {/* {pageTitle} */}
-      </View>
+          <Text className="text-lg font-bold">Help</Text>
+          {/* {pageTitle} */}
+        </View>
         <View
           style={[
             styles.containerInfo,
