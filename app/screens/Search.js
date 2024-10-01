@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 // import { NavigationEvents } from "react-navigation";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import {
   View,
   Text,
@@ -12,6 +11,8 @@ import {
   Dimensions,
   TextInput,
   ActivityIndicator,
+  Image,
+  Animated,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../components/styles";
@@ -43,13 +44,12 @@ const Search = () => {
 };
 
 const SearchClass = ({ navigation }) => {
-  const audioRef = useRef(new Audio.Sound());
-
   const [terms, setTerms] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [sound, setSound] = useState(null);
   const [duration, setDuration] = useState(null); // For storing the duration
   const [start, setStart] = useState(false);
+  const [title, setTitle] = useState();
   const width = Dimensions.get("window").width;
   const getTerms = async () => {
     setIsLoading(true);
@@ -73,16 +73,12 @@ const SearchClass = ({ navigation }) => {
       });
   };
   async function playAudio(audioUrl) {
-    if (sound) {
-      // Unload any previous sound before playing a new one
-      await sound.unloadAsync();
-    }
-
     const { sound: newSound } = await Audio.Sound.createAsync({
       uri: audioUrl,
     });
     setSound(newSound);
     await newSound.playAsync();
+    console.log(newSound);
     // Get the duration of the audio
     const status = await newSound.getStatusAsync();
     if (status && status.durationMillis) {
@@ -91,9 +87,29 @@ const SearchClass = ({ navigation }) => {
       setStart(true);
       setTimeout(() => {
         setStart(false);
+        setSound(newSound);
       }, seconds * 1000);
     }
   }
+
+  const pauseSound = () => {
+    if (sound) {
+      sound.pauseAsync();
+      setStart(false);
+    }
+  };
+  const replay = () => {
+    if (sound) {
+      sound.playAsync();
+      setStart(true);
+    }
+  };
+  const stop = () => {
+    if (sound) {
+      sound.stopAsync();
+      setStart(false);
+    }
+  };
 
   const renderItem = ({ item }) => (
     <View className="p-4 space-y-2">
@@ -107,10 +123,18 @@ const SearchClass = ({ navigation }) => {
       <Text>{item.annotation}</Text>
       <Text className="text-gray-500">{item.fullDescription}</Text>
 
+      {item.pictogramUrl && (
+        <View className="w-full h-40 border rounded border-gray-400">
+          <Image source={{ uri: item.pictogramUrl }} className="w-full h-40" />
+        </View>
+      )}
       {/* Button to play annotation audio */}
       <TouchableOpacity
         className="bg-blue-500 flex-row justify-between p-3 items-center rounded"
-        onPress={() => playAudio(item.annotationAudioUrl)}
+        onPress={() => {
+          playAudio(item.annotationAudioUrl);
+          setTitle(item.title);
+        }}
       >
         <Text>Play Annotation Audio</Text>
         <AntDesign name="play" size={24} color="white" />
@@ -126,13 +150,29 @@ const SearchClass = ({ navigation }) => {
   );
   useEffect(() => {
     getTerms();
-  }, []);
+    console.log(sound);
+  }, [sound]);
   return (
-    <SafeAreaView className="flex-1 bg-green-200">
+    <SafeAreaView className="flex-1 ">
       {/* BACKGROUND IMAGE*/}
-      <Modal visible={sound ? true : false}>
+      <Modal
+        visible={sound ? true : false}
+        presentationStyle="formSheet"
+        animationType="slide"
+      >
         <SafeAreaView className="flex-1 items-start ">
+          <View className="w-full items-end py-2 px-4">
+            <TouchableOpacity
+              onPress={() => {
+                setSound(null);
+                stop();
+              }}
+            >
+              <AntDesign name="closecircle" size={24} color="red" />
+            </TouchableOpacity>
+          </View>
           <View className="w-full items-center">
+            <Text className="text-lg font-semibold">{title}</Text>
             <LottieView
               source={require("../assets/Animation.json")}
               autoPlay
@@ -146,16 +186,30 @@ const SearchClass = ({ navigation }) => {
                 width={width - 100}
                 height={1}
               />
+
+              {start ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    pauseSound();
+                  }}
+                >
+                  <AntDesign name="pausecircle" size={24} color="black" />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    replay();
+                  }}
+                >
+                  <AntDesign name="play" size={24} color="black" />
+                </TouchableOpacity>
+              )}
               <TouchableOpacity
                 onPress={() => {
-                  playAudio();
+                  stop();
                 }}
               >
-                {start ? (
-                  <AntDesign name="pausecircle" size={24} color="black" />
-                ) : (
-                  <AntDesign name="play" size={24} color="black" />
-                )}
+                <FontAwesome name="stop" size={24} color="black" />
               </TouchableOpacity>
             </View>
           </View>

@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { styles } from "../components/styles";
 import * as SMS from "expo-sms";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import { SafeAreaView } from "react-native";
 
@@ -114,7 +114,7 @@ const Settings = ({ navigation }) => {
   });
 
   return (
-    <SafeAreaView className="flex-1 bg-green-200">
+    <SafeAreaView className="flex-1 ">
       {/* BACKGROUND IMAGE*/}
       <View className="flex-1">
         <View className="w-full px-4  flex-row justify-between items-center">
@@ -125,34 +125,36 @@ const Settings = ({ navigation }) => {
         {/* SETTINGS CONTAINER */}
 
         <View>
-          <View>
-            <View className="flex-row w-full justify-between px-10">
-              <TouchableOpacity
-                title="Languages"
-                onPress={() => navigation.navigate("Languages")}
-                className="items-center"
-              >
-                <MaterialIcons name="language" size={100} color={"#FF4E40"} />
-                <Text style={styles.bold}>Change Language</Text>
-              </TouchableOpacity>
+          <View className="p-2 space-y-4">
+            <TouchableOpacity
+              title="Languages"
+              onPress={() => navigation.navigate("Languages")}
+              className="flex-row p-3 mx-2 rounded-lg bg-white items-center space-x-1"
+            >
+              <MaterialIcons name="language" size={24} color={"#FF4E40"} />
+              <Text style={styles.bold}>Change Language</Text>
+              <View className="flex-1 items-end">
+                <AntDesign name="right" size={24} color="black" />
+              </View>
+            </TouchableOpacity>
 
-              {/* <TouchableOpacity title="Emergency" onPress={() => reportEvent()}> */}
+            {/* <TouchableOpacity title="Emergency" onPress={() => reportEvent()}> */}
 
-              <TouchableOpacity
-                title="Emergency"
-                onPress={() => alertTemp()}
-                className="items-center"
-              >
-                <MaterialIcons
-                  name="notification-important"
-                  size={100}
-                  color={"red"}
-                />
-                <Text style={[styles.bold, { color: "red" }]}>
-                  REPORT EVENT
-                </Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              title="Emergency"
+              onPress={() => alertTemp()}
+              className="flex-row p-3 mx-2 rounded-lg bg-white items-center space-x-1"
+            >
+              <MaterialIcons
+                name="notification-important"
+                size={24}
+                color={"red"}
+              />
+              <Text style={[styles.bold, { color: "red" }]}>REPORT EVENT</Text>
+              <View className="flex-1 items-end">
+                <AntDesign name="right" size={24} color="black" />
+              </View>
+            </TouchableOpacity>
 
             <TouchableOpacity
               title="Languages"
@@ -162,14 +164,17 @@ const Settings = ({ navigation }) => {
                   "To let us know what you think about this app, please email info.drr.app@gmail.com Thank you :)"
                 )
               }
-              className="px-10 items-center"
+              className="flex-row p-3 mx-2 rounded-lg bg-white items-center space-x-1"
             >
               <MaterialIcons
                 name="local-post-office"
-                size={100}
+                size={24}
                 color={"#F9A603"}
               />
               <Text style={styles.bold}>Leave Feedback</Text>
+              <View className="flex-1 items-end">
+                <AntDesign name="right" size={24} color="black" />
+              </View>
             </TouchableOpacity>
           </View>
         </View>

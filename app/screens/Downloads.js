@@ -31,7 +31,7 @@ const Downloads = () => {
   });
 
   return (
-    <SafeAreaView className="flex-1 bg-green-200">
+    <SafeAreaView className="flex-1 ">
       <View className="flex-1">
         {/* HEADER*/}
         <View className="w-full px-4  flex-row justify-between items-center">
