@@ -16,7 +16,6 @@ const Languages = ({ navigation }) => {
   useEffect(() => {
     getAllLanguages()
       .then((value) => {
-        console.log(value.data.data);
         setLangButtons(value.data.data);
       })
       .catch((err) => {
