@@ -4,7 +4,7 @@
     "slug": "disaster-risk-reduction",
     "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./app/assets/app-icon.png",
+    "icon": "./app/assets/DRR.png",
     "assetBundlePatterns": ["**/*"],
     "extra": {
       "eas": {
@@ -14,8 +14,8 @@
     "android": {
       "versionCode": 1,
       "package": "com.ymcasl.disasterriskreduction",
-      "adaptiveIcon":{
-        "foregroundImage": "./app/assets/app-icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/DRR.png",
         "backgroundColor": "#ffffff"
       }
     },

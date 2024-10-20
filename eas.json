@@ -20,6 +20,10 @@
       }
     },
     "production": {
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "$EXPO_PUBLIC_API_URL"
+      },
       "ios": {
         "resourceClass": "m-medium"
       }
