@@ -3,20 +3,25 @@
     "name": "Disaster Risk Reduction",
     "slug": "disaster-risk-reduction",
     "version": "1.1.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "orientation": "portrait",
+    "icon": "./app/assets/app-icon.png",
+    "assetBundlePatterns": ["**/*"],
     "extra": {
       "eas": {
-        "projectId": "c0c8ba1d-0b47-41a8-a991-83cd2651415f"
+        "projectId": "a6c2bcc2-c4c1-4ae5-b2bd-a0f6b8f31db4"
       }
     },
     "android": {
-      "package": "com.ymcasl.disasterriskreduction"
+      "versionCode": 1,
+      "package": "com.ymcasl.disasterriskreduction",
+      "adaptiveIcon":{
+        "foregroundImage": "./app/assets/app-icon.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "web": {
       "bundler": "metro"
-    }
+    },
+    "owner": "chinedumeke"
   }
-
 }
