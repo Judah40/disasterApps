@@ -1,33 +1,45 @@
 {
   "expo": {
-    "name": "DisasterRiskReduction",
-    "slug": "MyReactNativeProject",
-    "version": "1.0.2",
+    "name": "DRR",
+    "slug": "disaster-risk-reduction",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "icon": "./app/assets/icon.png",
     "assetBundlePatterns": [
       "**/*"
     ],
+    "splash": {
+      "image": "./app/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "extra": {
       "eas": {
-        "projectId": "bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
+        "projectId": "a6c2bcc2-c4c1-4ae5-b2bd-a0f6b8f31db4"
       }
     },
     "android": {
       "versionCode": 3,
-      "package": "com.ymcasl.MyReactNativeProject"
+      "package": "com.ymcasl.disasterriskreduction",
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "favicon": "./app/assets/favicon.png"
     },
+    "owner": "chinedumeke",
     "ios": {
-      "bundleIdentifier": "com.ymcasl.MyReactNativeProject"
+      "bundleIdentifier": "com.ymcasl.disasterriskreduction"
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
+      "url": "https://u.expo.dev/a6c2bcc2-c4c1-4ae5-b2bd-a0f6b8f31db4"
     }
-  },
-  "name": "MyReactNativeProject",
-  "scheme": "your-app-scheme"
+  }
 }
