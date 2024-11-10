@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "disaster-risk-reduction-439218",
+  "private_key_id": "d330362e1d6882a9b27bcc96d428f68b7e7d1afa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDA5d+i/Y037QBn\nKWswCEw5WliKN4Ogubh5IKH2KyQXRdpdAk6vSoW7wKzEpyzcQR6fyehEAzEzQcl6\nFueS5gfdNFWaPv1Nvr1KOsmv9BWfvZRhfxhtJBMET8ZtupL4aloVdfCYpsQVq4pe\nFTKhBd4e2zQtrWWD9pyvSVjsX4QHmTRXjSsX2tyc9X8Ii7flYwU51esR86XgMmHt\n7lv5cgzpksg0WzsQEaVk+Q341tGg913bpkj4dMTcJFgPJl5u+ypqT5un07Zadzpk\nqR66l5s35fYqUrLBhkJLxevcfrdlYMhp2v52a/bWJspWJ5ueD9HapyUzrx0RfZjT\n1k2q5zXDAgMBAAECggEAEPrrQcTCDp89PteFiPfiBdZvHtOeMaLHm1oFB89qYOYU\nP8W5OXL87LccPj9dEpJk6Ln0STBiv1lWK/oiLmszXASEWIyc7aARt5wPLv70fFhK\n3H48nzbiualwFS6sS1PJVERKhpV/g0zTZE7HYydKEztGj5LI8eHejwuM2VnbHHP3\nppvx122DFDR1pkdbeCTtDtBRBrd90ipLe2O3sBdKdPMVL0H1eSMR5e+UC8BayhTB\nNEar/vPrm5lfcnALChNaLxrVvu3LxiAUbZq1mfs4iBPP7HgXxTUMldf0QyFrv4Hw\nfg/biwaJ6SlZnEl8XNdcE0gyv1P2K89n8jXtQTTNwQKBgQD5VB9E6S2RysktM1vx\nkPRM3fdqAMGXboV9nvfsPoBmV52uTVG7lPH8Y3VqzKpPJO76/ODBcAhNHUCXtot/\nGNRU9+lucfObAjVSrDJgb7FChSQX1QNwMGa/dwBqzynH92CDVI2BR8qOWyp/jS7C\nd1rwS3W1UVNo8xQmCacwcWwsIwKBgQDGDzTmyXxprJueb5E70BagaGkjnJlh1xE9\nVsOI5kFHmMRqbZ7VCCsExfxtYBMxICbysEWg1+c6kt7S2+OgXOx4D7VCegL0V6/i\n8StL6EMF+Ecge+pLyJmYn8OApiEcS809DR9EhTPkp7+Y22IqeewWYbJNEh5mQCff\nb+LmxTcZ4QKBgGr9sUll8nsclQXDg1H/DQarPY+McYalE72baPJEw96m/HAel9My\nEEFpAKrq1q6Nv8uOlngLtlQ5GE3CNMw+gGdR1ybg2VOMOAuY/yko5N0RuzJK42XS\nL1U8IL601U4NFqpkrzBp+T7rWipQEF+8zhZNm15KXsure9ryy37bPTsXAoGAfXpE\n2bHs0EY6kTW9nVdH/ngnpBgiVIocse+2EZVO5j0ysvqgFfcGyg9kzSaBAi6MflSO\nyEgAhmtmH9CPdZlpdub8vxDtrj+ffverpnuPesjAxyO6XCjKppcRFQArGfIsJPGb\nTZ3WMpbUG9NhbeewWr2qaImCGOWsXTJVXj6zmgECgYEAmF+0FGNIidM/siEgTsTS\nZovffMJht2XNvYXa8UugeOKZ+0S7O4TxBvPr9xfVr0zqfmBHmVGu9qBa4Y0o3834\nu1SsR4VbFdGkNaf78xgNl6DJurgUb7vyrrSXaqCTBshFmfIBk/s8ySrK0iHPxTzg\ndLYxYY3o5VWYGGLJAWbDxLc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "disaster-risk-google-play-cons@disaster-risk-reduction-439218.iam.gserviceaccount.com",
+  "client_id": "109439926076473167763",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/disaster-risk-google-play-cons%40disaster-risk-reduction-439218.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
