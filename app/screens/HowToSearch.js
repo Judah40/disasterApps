@@ -6,93 +6,41 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { styles } from "../components/styles";
 import { Video } from "expo-av";
 import { AntDesign } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system";
 
-const HowToSearch = ({ navigation }) => {
-  // PAGE TITLE
-  const [pageTitle, setPageTitle] = useState("");
-  useEffect(() => {
-    try {
-      getPageTitle("howtoS").then((result) => {
-        setPageTitle(result);
-      });
-    } catch {}
-  }, []);
+const HowToSearch = () => {
+  const { width } = Dimensions.get("window");
 
-  const videoURI =
-    "https://ymcadrr.southafricanorth.cloudapp.azure.com/public/search.mp4";
-
-  const [videoLink, setVideoLink] = useState("");
-
-  const getVideo = async (videoURI) => {
-    const dirInfo = await FileSystem.getInfoAsync(
-      FileSystem.documentDirectory + "searchVideo.mp4"
-    );
-    if (!dirInfo.exists) {
-      //await FileSystem.makeDirectoryAsync(gifDir, { intermediates: true });
-
-      try {
-        const { uri } = await FileSystem.downloadAsync(
-          videoURI,
-          FileSystem.documentDirectory + "searchVideo.mp4",
-          {}
-        );
-
-        setVideoLink(uri);
-        setOnline(false);
-      } catch {
-        setOnline(true);
-        //Alert.alert("Please Download when online again", ":)");
-      }
-    } else {
-      setVideoLink(FileSystem.documentDirectory + "searchVideo.mp4");
-      setOnline(false);
-    }
+  const [isLoading, setIsLoading] = useState(false);
+  const handleLoadStart = () => {
+    setIsLoading(true); // Start loading indicator when video starts loading
   };
 
-  useEffect(() => {
-    getVideo(videoURI);
-  }, []);
-
-  const [online, setOnline] = useState(null);
-
+  const handleLoad = () => {
+    setIsLoading(false); // Hide loading indicator when video is loaded
+  };
   return (
-    <View className="flex-1 ">
-      <View className="flex-1">
-        <ScrollView>
-          <View style={styles.howToContainer}>
-            <View style={{ alignSelf: "center" }}>
-              {online == false ? (
-                <Video
-                  style={{
-                    height: 350,
-                    width: 350,
-                  }}
-                  resizeMode={"contain"}
-                  source={{ uri: videoLink }}
-                  useNativeControls
-                />
-              ) : (
-                <Video
-                  style={{
-                    height: 300,
-                    width: 350,
-                  }}
-                  source={{
-                    uri: videoURI,
-                  }}
-                  useNativeControls
-                />
-              )}
-              {/* {online == false ? <Text>Offline</Text> : <Text>ONLINE</Text>} */}
-            </View>
-          </View>
-        </ScrollView>
-      </View>
+    <View className="flex-1 items-center justify-center">
+      {isLoading && <ActivityIndicator />}
+
+      <Video
+        source={{
+          uri: "https://res.cloudinary.com/dggooq5sq/video/upload/v1728475319/hx48zy8ct9y2i86vtybq.mp4",
+        }}
+        style={{ width: width - 20, height: width - 20 }}
+        useNativeControls
+        resizeMode="contain"
+        onLoad={handleLoad}
+        onLoadStart={handleLoadStart}
+        shouldPlay
+        isMuted={false}
+      />
     </View>
   );
 };

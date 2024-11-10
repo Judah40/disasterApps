@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { styles } from "../components/styles";
 import HowToSearch from "./HowToSearch";
@@ -24,8 +25,23 @@ const Info = () => {
       }}
     >
       <Stack.Screen name="Help" component={InfoClass} />
-      <Stack.Screen name="HowToSearch" component={HowToSearch} />
-      <Stack.Screen name="HowToDownload" component={HowToDownload} />
+      <Stack.Screen
+        name="HowToSearch"
+        component={HowToSearch}
+        options={{
+          title: "How to Search",
+
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="HowToDownload"
+        component={HowToDownload}
+        options={{
+          title: "How to Download",
+          headerShown: true,
+        }}
+      />
       <Stack.Screen
         name="LanguagesMap"
         component={LanguagesMap}
@@ -56,7 +72,7 @@ const InfoClass = ({ navigation }) => {
     <SafeAreaView className="flex-1 ">
       {/* BACKGROUND IMAGE*/}
       <View className="flex-1">
-        <View className="w-full px-4  flex-row justify-between items-center">
+        <View className="w-full p-4    flex-row justify-between items-center">
           <Text className="text-lg font-bold">Help</Text>
           {/* {pageTitle} */}
         </View>
@@ -80,7 +96,11 @@ const InfoClass = ({ navigation }) => {
               <View className="px-4 flex-row justify-between">
                 <TouchableOpacity
                   title="LanguagesMap"
-                  onPress={() => navigation.navigate("LanguagesMap")}
+                  onPress={() => {
+                    
+                    // navigation.navigate("LanguagesMap")
+                  Alert.alert("Status", "Coming Soon")
+                  }}
                   className="items-center space-y-4"
                 >
                   <Image

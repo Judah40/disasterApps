@@ -20,8 +20,9 @@
       }
     },
     "production": {
-      "ios": {
-        "resourceClass": "m-medium"
+      "channel":"production",
+      "env":{
+        "EXPO_PUBLIC_API_URL":"http://102.37.208.137/api/v1"
       }
     }
   },

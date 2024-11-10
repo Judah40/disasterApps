@@ -2,23 +2,32 @@
   "expo": {
     "name": "DisasterRiskReduction",
     "slug": "MyReactNativeProject",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "assetBundlePatterns": [
       "**/*"
     ],
     "extra": {
       "eas": {
-        "projectId": "c0c8ba1d-0b47-41a8-a991-83cd2651415f"
+        "projectId": "bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
       }
     },
     "android": {
+      "versionCode": 3,
       "package": "com.ymcasl.MyReactNativeProject"
     },
     "web": {
       "bundler": "metro"
+    },
+    "ios": {
+      "bundleIdentifier": "com.ymcasl.MyReactNativeProject"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
     }
   },
   "name": "MyReactNativeProject",
   "scheme": "your-app-scheme"
-
 }

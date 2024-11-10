@@ -7,12 +7,12 @@ import {
   ImageBackground,
   TouchableOpacity,
   Modal,
-  Alert,
   Pressable,
   Animated,
   Dimensions,
   Platform,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 const Downloads = () => {
@@ -53,8 +53,9 @@ const Downloads = () => {
             }}
           >
             <TouchableOpacity
-              title="Text"
-              onPress={{}}
+              onPress={() => {
+                Alert.alert("Status", "Coming soon");
+              }}
               style={{
                 flex: orientation == "lanscale" ? 1 : 1,
                 alignItems: "center",
@@ -66,8 +67,9 @@ const Downloads = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              title="Audio"
-              onPress={{}}
+              onPress={() => {
+                Alert.alert("Status", "Coming soon");
+              }}
               style={{
                 flex: orientation == "lanscale" ? 1 : 1,
                 alignItems: "center",
