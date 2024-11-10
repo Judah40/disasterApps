@@ -18,7 +18,7 @@
       }
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 3,
       "package": "com.ymcasl.disasterriskreduction",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
