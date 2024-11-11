@@ -19,6 +19,7 @@
         "projectId": "a6c2bcc2-c4c1-4ae5-b2bd-a0f6b8f31db4"
       }
     },
+  
     "android": {
       "versionCode": 3,
       "package": "com.ymcasl.disasterriskreduction",
