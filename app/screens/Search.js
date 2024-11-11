@@ -55,6 +55,8 @@ const SearchClass = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [isAudioLoading, setIsAudioLoading] = useState(false);
   const width = Dimensions.get("window").width;
+  const [filteredData, setFilteredData] = useState(terms);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Cleanup and stop sound when the component unmounts
   useEffect(() => {
@@ -65,6 +67,21 @@ const SearchClass = ({ navigation }) => {
     };
   }, [sound]);
 
+  const handleSeacrch = (text) => {
+    if (text) {
+      setSearchQuery(text);
+      // Filter the data based on the search query
+      const filteredTerms = terms.filter((item) =>
+        item.title.toLowerCase().includes(text.toLowerCase())
+      );
+      if (filteredData) {
+        setTerms(filteredTerms);
+      }
+    } else {
+      setSearchQuery("");
+      getTerms();
+    }
+  };
   const getTerms = async () => {
     setIsLoading(true);
     try {
@@ -245,7 +262,6 @@ const SearchClass = ({ navigation }) => {
 
             {selectedTerm ? (
               <View className=" p-2 space-y-5">
-                
                 <View className="my-2">
                   <Text className="font-extrabold">Annotation</Text>
                   <Text className="text-gray-500">
@@ -258,7 +274,6 @@ const SearchClass = ({ navigation }) => {
                   <Text>{selectedTerm.fullDescription}</Text>
                 </View>
               </View>
-            
             ) : (
               <ActivityIndicator size="small" color="#ffffff" />
             )}
@@ -285,7 +300,7 @@ const SearchClass = ({ navigation }) => {
             <FontAwesome name="search" size={24} color="black" />
             <TextInput
               className="flex-1 bg-white"
-              onChangeText={handleSearch}
+              onChangeText={(value) => handleSeacrch(value)}
               value={searchQuery}
             />
           </View>
@@ -294,7 +309,7 @@ const SearchClass = ({ navigation }) => {
         {isLoading && <ActivityIndicator />}
 
         <FlatList
-          data={filteredData}
+          data={terms}
           renderItem={renderItem}
           keyExtractor={(item) => item.termUUID}
         />
@@ -304,8 +319,6 @@ const SearchClass = ({ navigation }) => {
 };
 
 export default Search;
-
-
 
 // <TouchableOpacity
 // style={{ flex: 0, marginTop: 10, marginRight: 10 }}

@@ -11,7 +11,6 @@ import { setLanguage } from "../components/commonFn";
 import { getAllLanguages } from "../api";
 
 const Languages = ({ navigation }) => {
-  
   const [langButtons, setLangButtons] = useState();
   useEffect(() => {
     getAllLanguages()
@@ -45,8 +44,7 @@ const Languages = ({ navigation }) => {
               <ButtonSL
                 lang={item.languageName}
                 onPress={() => {
-                  setLanguage(item.languageName),
-                    navigation.navigate("Tabs");
+                  setLanguage(item.languageName), navigation.navigate("Tabs");
                 }}
               />
             );
