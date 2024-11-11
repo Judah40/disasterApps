@@ -5,6 +5,10 @@
   },
   "build": {
     "development": {
+      "env": {
+       "EXPO_PUBLIC_API_URL": "$EXPO_PUBLIC_API_URL"
+      },
+      "developmentClient": true,
       "distribution": "internal",
       "android": {
         "gradleCommand": ":app:assembleDebug"
