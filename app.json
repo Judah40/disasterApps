@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "DRR",
-    "slug": "disaster-risk-reduction",
+    "slug": "MyReactNativeProject",
     "version": "1.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
@@ -16,13 +16,12 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a6c2bcc2-c4c1-4ae5-b2bd-a0f6b8f31db4"
+        "projectId": "bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
       }
     },
-  
     "android": {
       "versionCode": 3,
-      "package": "com.ymcasl.disasterriskreduction",
+      "package": "com.ymcasl.drr",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -34,13 +33,13 @@
     },
     "owner": "chinedumeke",
     "ios": {
-      "bundleIdentifier": "com.ymcasl.disasterriskreduction"
+      "bundleIdentifier": "com.ymcasl.drr"
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/a6c2bcc2-c4c1-4ae5-b2bd-a0f6b8f31db4"
+      "url": "https://u.expo.dev/bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
     }
   }
 }
