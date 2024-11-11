@@ -41,6 +41,7 @@
     "react-dom": "18.2.0",
     "react-native": "0.74.5",
     "react-native-elements": "^3.4.2",
+    "react-native-fast-image": "^8.6.3",
     "react-native-fs": "^2.19.0",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-image-viewing": "^0.2.2",
@@ -60,7 +61,8 @@
     "react-redux": "^8.0.5",
     "redux": "^4.1.2",
     "tedious": "^16.0.0",
-    "toolkit": "^1.5.4"
+    "toolkit": "^1.5.4",
+    "expo-dev-client": "~4.0.29"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
