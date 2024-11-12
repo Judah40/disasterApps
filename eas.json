@@ -6,7 +6,7 @@
   "build": {
     "development": {
       "env": {
-       "EXPO_PUBLIC_API_URL": "$EXPO_PUBLIC_API_URL"
+        "EXPO_PUBLIC_API_URL": "https://drr.southafricanorth.cloudapp.azure.com/api/v1"
       },
       "developmentClient": true,
       "distribution": "internal",
@@ -28,7 +28,7 @@
       "autoIncrement": true,
       "channel": "production",
       "env": {
-        "EXPO_PUBLIC_API_URL": "$EXPO_PUBLIC_API_URL"
+        "EXPO_PUBLIC_API_URL": "https://drr.southafricanorth.cloudapp.azure.com/api/v1"
       },
       "ios": {
         "resourceClass": "m-medium"
