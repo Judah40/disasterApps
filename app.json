@@ -21,7 +21,7 @@
     },
     "android": {
       "versionCode": 3,
-      "package": "com.ymcasl.drr",
+      "package": "com.ymcasl.MyReactNativeProject",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -33,13 +33,16 @@
     },
     "owner": "chinedumeke",
     "ios": {
-      "bundleIdentifier": "com.ymcasl.drr"
+      "bundleIdentifier": "com.ymcasl.MyReactNativeProject"
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
