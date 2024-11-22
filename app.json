@@ -1,11 +1,16 @@
 {
   "expo": {
-    "name": "DisasterRiskReduction",
+    "name": "DRR",
     "slug": "MyReactNativeProject",
     "version": "1.1.3",
     "assetBundlePatterns": [
       "**/*"
     ],
+    "splash": {
+      "image": "./app/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "extra": {
       "eas": {
         "projectId": "bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
@@ -14,11 +19,17 @@
     "android": {
       
       "versionCode": 7,
-      "package": "com.ymcasl.MyReactNativeProject"
+      "package": "com.ymcasl.MyReactNativeProject",
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "favicon": "./app/assets/favicon.png"
     },
+    "owner": "chinedumeke",
     "ios": {
       "bundleIdentifier": "com.ymcasl.MyReactNativeProject"
     },
@@ -28,9 +39,10 @@
     "updates": {
       "url": "https://u.expo.dev/bad9211d-4f1d-43a8-af75-a0fd9b041f2c"
     },
-    "newArchEnabled":true
+    "plugins": [
+      "expo-router"
+    ]
   },
-  "name": "MyReactNativeProject",
-  "scheme": "your-app-scheme"
+    "newArchEnabled":true
   
 }

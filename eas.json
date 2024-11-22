@@ -1,9 +1,14 @@
 {
   "cli": {
-    "version": ">= 3.9.0"
+    "version": ">= 3.9.0",
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://drr.southafricanorth.cloudapp.azure.com/api/v1"
+      },
+      "developmentClient": true,
       "distribution": "internal",
       "android": {
         "gradleCommand": ":app:assembleDebug"
@@ -20,13 +25,22 @@
       }
     },
     "production": {
-      "channel":"production",
-      "env":{
-        "EXPO_PUBLIC_API_URL":"https://drr.southafricanorth.cloudapp.azure.com/api/v1"
+      "autoIncrement": true,
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://drr.southafricanorth.cloudapp.azure.com/api/v1"
+      },
+      "ios": {
+        "resourceClass": "m-medium"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./disaster-risk-reduction-439218-d330362e1d68.json",
+        "track": "production"
+      }
+    }
   }
 }
