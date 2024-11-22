@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+const apiUrl = "https://drr.southafricanorth.cloudapp.azure.com/api/v1";
 
 //GET TERMS BY LANGUAGE
 export const getTermsByLanguage = (language) => {
@@ -9,7 +9,8 @@ export const getTermsByLanguage = (language) => {
 };
 
 //GET ALL LANGUAGES
-export const getAllLanguages =async () => {
-  const response =await axios.get(`${apiUrl}/languages`);
+export const getAllLanguages = async () => {
+  console.log(apiUrl);
+  const response = axios.get(`${apiUrl}/languages/`);
   return response;
 };
