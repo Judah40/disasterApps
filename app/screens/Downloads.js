@@ -15,6 +15,12 @@ import {
   Alert,
 } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
+import { getLanguage } from "../components/commonFn";
+import { downloadAllLanguages } from "../api";
+import * as Print from "expo-print";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+
 const Downloads = () => {
   const [orientation, setOrientation] = useState("landscale");
   useEffect(() => {
@@ -30,6 +36,47 @@ const Downloads = () => {
     checkOrientation();
   });
 
+  const downloadText = async () => {
+    try {
+      const language = await getLanguage();
+      const { data } = await downloadAllLanguages(language);
+      console.log(data);
+
+    // Create HTML content for the PDF
+    const htmlContent = `
+      <html>
+        <body>
+          <h1>${language}</h1>
+          <p>${data}</p>
+        </body>
+      </html>
+    `;
+
+    // Generate the PDF using expo-print
+    const { uri } = await Print.printToFileAsync({ html: htmlContent });
+
+    // Define a file path for saving the PDF
+    const filePath = `${FileSystem.documentDirectory}example.pdf`;
+
+    // Move the generated PDF to the file system
+    await FileSystem.moveAsync({
+      from: uri,
+      to: filePath,
+    });
+
+    // Share the PDF
+    if (await FileSystem.getInfoAsync(filePath)) {
+      await Sharing.shareAsync(filePath);
+    } else {
+      Alert.alert("Error", "Failed to save the PDF.");
+    }
+  } catch (error) {
+    Alert.alert("Error", "Something went wrong while creating the PDF.");
+    console.error(error);
+  } finally {
+    setIsLoading(false);
+  }
+  };
   return (
     <SafeAreaView className="flex-1 ">
       <View className="flex-1">
@@ -54,7 +101,7 @@ const Downloads = () => {
           >
             <TouchableOpacity
               onPress={() => {
-                Alert.alert("Status", "Coming soon");
+                downloadText();
               }}
               style={{
                 flex: orientation == "lanscale" ? 1 : 1,

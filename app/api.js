@@ -14,3 +14,11 @@ export const getAllLanguages = async () => {
   const response = axios.get(`${apiUrl}/languages/`);
   return response;
 };
+
+//DOWNLOAD ALL LANGUAGES
+export const downloadAllLanguages = async (language) => {
+  const response = await axios.get(
+    `${apiUrl}/terms/${language}/download-texts`
+  );
+  return response;
+};

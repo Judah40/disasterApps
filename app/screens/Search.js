@@ -44,60 +44,80 @@ const Search = () => {
   );
 };
 
+// import React, { useEffect, useState } from "react";
+
 const SearchClass = ({ navigation }) => {
-  const [terms, setTerms] = useState([]);
-  const [selectedTerm, setSelectedTerm] = useState({});
-  const [isImageUrl, setIsImageUrl] = useState("");
+  const [terms, setTerms] = useState([]); // Full list of terms
+  const [visibleData, setVisibleData] = useState([]); // Data displayed on the UI
+  const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [page, setPage] = useState(1); // Current page
+  const [hasMore, setHasMore] = useState(true); // Flag for more data
+  const [isAudioLoading, setIsAudioLoading] = useState(false);
   const [sound, setSound] = useState(null);
+  const [selectedTerm, setSelectedTerm] = useState({});
   const [duration, setDuration] = useState(null);
   const [start, setStart] = useState(false);
+
+
+
+
+
+  const [isImageUrl, setIsImageUrl] = useState("");
   const [title, setTitle] = useState("");
-  const [isAudioLoading, setIsAudioLoading] = useState(false);
   const width = Dimensions.get("window").width;
-  const [filteredData, setFilteredData] = useState(terms);
-  const [searchQuery, setSearchQuery] = useState("");
+  const ITEMS_PER_PAGE = 5;
 
-  // Cleanup and stop sound when the component unmounts
-  useEffect(() => {
-    return () => {
-      if (sound) {
-        sound.unloadAsync();
-      }
-    };
-  }, [sound]);
-
-  const handleSeacrch = (text) => {
+  const handleSearch = (text) => {
+    setSearchQuery(text);
     if (text) {
-      setSearchQuery(text);
-      // Filter the data based on the search query
       const filteredTerms = terms.filter((item) =>
         item.title.toLowerCase().includes(text.toLowerCase())
       );
-      if (filteredData) {
-        setTerms(filteredTerms);
-      }
+      setVisibleData(filteredTerms.slice(0, page * ITEMS_PER_PAGE));
     } else {
-      setSearchQuery("");
-      getTerms();
+      setVisibleData(terms.slice(0, page * ITEMS_PER_PAGE));
     }
   };
-  const getTerms = async () => {
+
+  const fetchTerms = async () => {
     setIsLoading(true);
     try {
       const language = await getLanguage();
-      const { data } = await getTermsByLanguage(language);
+      const { data } = await getTermsByLanguage(language); // Fetch all terms
       const { data: termsData } = data;
 
-      if (termsData) {
+      if (termsData.length > 0) {
         setTerms(termsData);
+        setVisibleData(termsData.slice(0, ITEMS_PER_PAGE)); // Show initial 5 items
+        setHasMore(termsData.length > ITEMS_PER_PAGE);
+      } else {
+        setHasMore(false);
       }
     } catch (error) {
       Alert.alert("Error", "Failed to fetch terms. Please try again later.");
-      console.error("GET_TERMS_ERROR: ", error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const loadMore = () => {
+    if (!isLoading && hasMore) {
+      const nextPage = page + 1;
+      const nextData = terms.slice(0, nextPage * ITEMS_PER_PAGE);
+
+      setVisibleData(nextData);
+      setPage(nextPage);
+      setHasMore(nextData.length < terms.length);
+    }
+  };
+
+  const onRefresh = () => {
+    setIsRefreshing(true);
+    setPage(1);
+    setHasMore(true);
+    fetchTerms().finally(() => setIsRefreshing(false));
   };
 
   const playAudio = async (audioUrl) => {
@@ -155,62 +175,64 @@ const SearchClass = ({ navigation }) => {
 
   const renderItem = ({ item }) => (
     <View className="p-4 space-y-5">
-      <View className="flex-row justify-between items-center">
-        <Text className="font-semibold text-lg">{item.title}</Text>
-        {/* <Text className="text-blue-500">{item.languageName}</Text> */}
-        {/* <View className="p-1 bg-white rounded"></View> */}
-      </View>
+      <Text className="font-semibold text-lg">{item.title}</Text>
       {item.pictogramUrl && (
-        <View className="w-full h-40 border rounded border-gray-400">
-          <Image source={{ uri: item.pictogramUrl }} className="w-full h-40" />
-        </View>
+        <Image source={{ uri: item.pictogramUrl }} className="w-full h-40" />
+      )}
+      <Text className="text-gray-500">{item.annotation}</Text>
+      {item && item.annotationAudioUrl && (
+        <TouchableOpacity
+          className="bg-blue-500 flex-row justify-between p-3 items-center rounded "
+          onPress={() => {
+            playAudio(item.annotationAudioUrl);
+            setSelectedTerm(item);
+            setTitle(item.title);
+            setIsImageUrl(item.pictogramUrl);
+          }}
+        >
+          <Text className="text-white font-bold">Play Annotation Audio</Text>
+          {isAudioLoading ? (
+            <ActivityIndicator size="small" color="#ffffff" />
+          ) : (
+            <AntDesign name="play" size={24} color="white" />
+          )}
+          {/* <AntDesign name="play" size={24} color="white" /> */}
+        </TouchableOpacity>
       )}
 
-      <Text className="text-gray-500 ">{item.annotation}</Text>
-      <Text>{item.fullDescription}</Text>
-
-      {/* Button to play annotation audio */}
-      <TouchableOpacity
-        className="bg-blue-500 flex-row justify-between p-3 items-center rounded "
-        onPress={() => {
-          playAudio(item.annotationAudioUrl);
-          setSelectedTerm(item);
-          setTitle(item.title);
-          setIsImageUrl(item.pictogramUrl);
-        }}
-      >
-        <Text className="text-white font-bold">Play Annotation Audio</Text>
-        {isAudioLoading ? (
-          <ActivityIndicator size="small" color="#ffffff" />
-        ) : (
-          <AntDesign name="play" size={24} color="white" />
-        )}
-        {/* <AntDesign name="play" size={24} color="white" /> */}
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        className="bg-blue-500 flex-row justify-between p-3 items-center rounded"
-        onPress={() => {
-          playAudio(item.descriptionAudioUrl);
-          setTitle(item.title);
-          setSelectedTerm(item);
-          setIsImageUrl(item.pictogramUrl);
-        }}
-      >
-        <Text className="text-white font-bold">Play Description Audio</Text>
-        {isAudioLoading ? (
-          <ActivityIndicator size="small" color="#ffffff" />
-        ) : (
-          <AntDesign name="play" size={24} color="white" />
-        )}
-        {/* <AntDesign name="play" size={24} color="white" /> */}
-      </TouchableOpacity>
+      {item && item.descriptionAudioUrl && (
+        <TouchableOpacity
+          className="bg-blue-500 flex-row justify-between p-3 items-center rounded"
+          onPress={() => {
+            playAudio(item.descriptionAudioUrl);
+            setTitle(item.title);
+            setSelectedTerm(item);
+            setIsImageUrl(item.pictogramUrl);
+          }}
+        >
+          <Text className="text-white font-bold">Play Description Audio</Text>
+          {isAudioLoading ? (
+            <ActivityIndicator size="small" color="#ffffff" />
+          ) : (
+            <AntDesign name="play" size={24} color="white" />
+          )}
+          {/* <AntDesign name="play" size={24} color="white" /> */}
+        </TouchableOpacity>
+      )}
     </View>
   );
 
   useEffect(() => {
-    getTerms();
+    fetchTerms();
   }, []);
+  // Cleanup and stop sound when the component unmounts
+  useEffect(() => {
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, [sound]);
 
   return (
     <SafeAreaView className="flex-1">
@@ -234,11 +256,11 @@ const SearchClass = ({ navigation }) => {
           </View>
           <View className="w-full items-center">
             {/* <LottieView
-              source={require("../assets/Animation.json")}
-              autoPlay
-              loop
-              style={{ width: 250, height: 250 }}
-            /> */}
+          source={require("../assets/Animation.json")}
+          autoPlay
+          loop
+          style={{ width: 250, height: 250 }}
+        /> */}
             <View className="flex-row my-3 space-x-2">
               <Progress.Bar
                 indeterminateAnimationDuration={duration}
@@ -280,43 +302,36 @@ const SearchClass = ({ navigation }) => {
           </View>
         </SafeAreaView>
       </Modal>
-
       <View className="flex-1">
-        {/* HEADER */}
-        <View className="w-full px-4 flex-row justify-between items-center py-3">
-          <Text className="text-lg font-bold ">Search</Text>
-          {/* <TouchableOpacity
-            style={{ marginTop: 10, marginRight: 10 }}
-            onPress={() => {
-              navigation.navigate("Favourites");
-            }}
-          >
-            <Ionicons name="heart" size={30} color="black" />
-          </TouchableOpacity> */}
-        </View>
-
         <View className="w-full items-center py-2">
           <View className="flex-row w-11/12 bg-white p-2 rounded border-[0.2px] space-x-2">
             <FontAwesome name="search" size={24} color="black" />
             <TextInput
               className="flex-1 bg-white"
-              onChangeText={(value) => handleSeacrch(value)}
+              onChangeText={handleSearch}
               value={searchQuery}
             />
           </View>
         </View>
 
-        {isLoading && <ActivityIndicator />}
-
         <FlatList
-          data={terms}
+          data={visibleData}
           renderItem={renderItem}
           keyExtractor={(item) => item.termUUID}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.5}
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
+          ListFooterComponent={
+            isLoading && page > 1 ? <ActivityIndicator /> : null
+          }
         />
       </View>
     </SafeAreaView>
   );
 };
+
+// {isLoading && page === 1 && <ActivityIndicator />}
 
 export default Search;
 
